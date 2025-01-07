@@ -1,0 +1,10 @@
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+}
+
+img {
+		border-radius: 5px;
+	}
