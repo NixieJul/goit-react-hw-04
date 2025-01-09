@@ -3,32 +3,36 @@ import toast from "react-hot-toast";
 import styles from "./SearchBar.module.css";
 
 const SearchBar = ({ onSubmit }) => {
-  const [input, setInput] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!input.trim()) {
-      toast.error("Please enter a search term.");
+    if (searchTerm.trim() === "") {
+      toast.error("Будь ласка, введіть текст для пошуку.");
       return;
     }
-    onSubmit(input);
-    setInput("");
+    onSubmit(searchTerm.trim());
+    setSearchTerm("");
   };
 
   return (
-    <header className={styles.header}>
+    <header className={styles.searchBar}>
       <form className={styles.form} onSubmit={handleSubmit}>
         <input
           type="text"
-          className={styles.input}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Search images and photos"
           autoComplete="off"
           autoFocus
+          placeholder="Введіть ключове слово"
+          value={searchTerm}
+          onChange={handleInputChange}
+          className={styles.input}
         />
         <button type="submit" className={styles.button}>
-          Search
+          Пошук
         </button>
       </form>
     </header>

@@ -1,38 +1,21 @@
-import { useEffect } from "react";
-import ReactModal from "react-modal";
+import Modal from "react-modal";
 import styles from "./ImageModal.module.css";
 
-ReactModal.setAppElement("#root");
-
-const ImageModal = ({ data, onClose }) => {
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onClose]);
-
-  const handleClickOutside = (e) => {
-    if (e.target.id === "modalOverlay") onClose();
-  };
-
+const ImageModal = ({ src, alt, author, onClose }) => {
   return (
-    <ReactModal
+    <Modal
       isOpen={true}
       onRequestClose={onClose}
       className={styles.modal}
       overlayClassName={styles.overlay}
-      id="modalOverlay"
-      onClick={handleClickOutside}
+      ariaHideApp={false}
     >
-      <img
-        src={data.urls.regular}
-        alt={data.alt_description}
-        className={styles.image}
-      />
-      <p className={styles.description}>Author: {data.user.name}</p>
-    </ReactModal>
+      <button onClick={onClose} className={styles.closeButton}>
+        ×
+      </button>
+      <img src={src} alt={alt} className={styles.image} />
+      <p className={styles.author}>Автор: {author}</p>
+    </Modal>
   );
 };
 
